@@ -1,0 +1,11 @@
+
+// 配置 babel转义
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "browsers": ["last 2 versions", "safari >= 7"]
+            }
+        }]
+    ]
+}
