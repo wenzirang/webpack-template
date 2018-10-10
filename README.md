@@ -175,8 +175,7 @@ webpack@4 基础项目环境 适用于搭建vue React Angular 只需在上面累
 
 >从webpack4x开始 官方移除了commonchunck插件 改用 optimiztion属性进行灵活的配置，这也是从webpac3x迁移到4x中比较复杂的一面
 
-
-###optimization.runtimeChunk
+### optimization.runtimeChunk
 
 >优化持久化缓存使用的 runtime 指的是webpack的运行环境（具体作用就是模板解析，加载）和模块信息清单，当每次有模块变更时都会变更，所以我们想吧这部分代码单独打包出来，配合后端缓存策略，这样就不会因为某个模块的便跟导致包含模块信息的模块缓存失败,而 `oprimizition.runtimeChunk`就是告诉webpack是否要吧这一部分单独打包出来(分包策略)
 
@@ -189,11 +188,11 @@ webpack@4 基础项目环境 适用于搭建vue React Angular 只需在上面累
         }
     }
 ```
+
 >具体解释
+<a href="https://segmentfault.com/q/1010000014954264" target="_blank">segmentfault</a>
 
-![runtime](./assets/runtime.png)
-
-###minimizer 或 minimize
+### minimizer 或 minimize
 
 ``` js
     module.exports = {
@@ -245,7 +244,7 @@ webpack@4 基础项目环境 适用于搭建vue React Angular 只需在上面累
             //压缩css 为每个css文件创建一个独立的打包文件
             new MiniCssExtractPlugin({
             filename: '[name].[contenthash:8].css'
-            }),            
+            })
         ]
     }
 ```
