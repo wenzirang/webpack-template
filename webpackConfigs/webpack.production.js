@@ -41,6 +41,7 @@ const config = merge.smart(baseConfig, {
             minimize: true,
           }
         },
+        "postcss-loader",
       ]
     }, {
       test: /\.less$/,
@@ -51,6 +52,7 @@ const config = merge.smart(baseConfig, {
             minimize: true,
           }
         },
+        "postcss-loader",
         'less-loader'
       ]
     }, {
@@ -62,9 +64,10 @@ const config = merge.smart(baseConfig, {
             minimize: true
           }
         },
+        "postcss-loader",
         'sass-loader'
       ]
-    }, ],
+    },],
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {

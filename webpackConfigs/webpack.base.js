@@ -14,50 +14,53 @@ module.exports = {
     },
     module: {
         rules: [{
-                test: /\.(js|jsx)$/,
-                use: [
-                    'babel-loader',
-                ],
-                //exclude是定义不希望babel处理的文件  
-                exclude: '/node_modules/'
-            }, {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                ]
-            }, {
-                test: /\.less$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'less-loader'
-                ]
-            }, {
-                test: /\.scss$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [{
-                    loader: 'url-loader',
-                    //使用插件时带上的参数
-                    options: {
-                        limit: 8192,
-                        name: 'img/[name].[hash:4].[ext]',
-                    }
-                }]
-            },
-            {
-                test: /\.html$/,
-                use: [
-                    'html-loader'
-                ]
-            }
+            test: /\.(js|jsx)$/,
+            use: [
+                'babel-loader',
+            ],
+            //exclude是定义不希望babel处理的文件  
+            exclude: '/node_modules/'
+        }, {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                "postcss-loader"
+            ]
+        }, {
+            test: /\.less$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                "postcss-loader",
+                'less-loader'
+            ]
+        }, {
+            test: /\.scss$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                "postcss-loader",
+                'sass-loader'
+            ]
+        },
+        {
+            test: /\.(png|jpg|gif)$/,
+            use: [{
+                loader: 'url-loader',
+                //使用插件时带上的参数
+                options: {
+                    limit: 8192,
+                    name: 'img/[name].[hash:4].[ext]',
+                }
+            }]
+        },
+        {
+            test: /\.html$/,
+            use: [
+                'html-loader'
+            ]
+        }
         ]
     },
     // 在webpack启动后会从配置入口模块触发找出所有的以来模块  resolve配置webpack如何寻找这些模块
