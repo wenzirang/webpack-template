@@ -1,13 +1,13 @@
 {
   "name": "allen-webpack4",
   "version": "1.0.0",
-  "description": "allenwen",
+  "description": "基于webpack 搭建的基础模版工程",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpackConfigs/webpack.production.js",
     "start": "webpack-dev-server --config webpackConfigs/webpack.development.js --open"
   },
-  "author": "",
+  "author": "AllenWen",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
