@@ -12,8 +12,8 @@ const config = merge.smart(baseConfig, {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial',
-          name: 'vendor',
+          chunks: 'all',
+          name: 'verdor',
           enforce: true
         }
       }
@@ -30,7 +30,6 @@ const config = merge.smart(baseConfig, {
       })
     ]
   },
-
   module: {
     rules: [{
       test: /\.css$/,
@@ -74,7 +73,7 @@ const config = merge.smart(baseConfig, {
       root: path.resolve(__dirname, '../')
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash:8].css'
+      filename: '/css/[name].[contenthash:8].css'
     }),
   ]
 })

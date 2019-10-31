@@ -1,11 +1,17 @@
-
-// 配置 babel转义
 {
     "presets": [
-        ["env", {
-            "targets": {
-                "browsers": ["last 2 versions", "safari >= 7"]
-            }
-        }]
-    ]
-}
+      "env",
+      "stage-2"
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "transform-object-rest-spread",
+      "syntax-dynamic-import"
+    ],
+    "env": {
+      "production": {
+        "plugins": ["transform-runtime"]
+      }
+    }
+  }
+  

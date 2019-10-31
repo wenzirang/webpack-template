@@ -1,72 +1,83 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const APP_PATH = './src/index.js'
-const DashboardPlugin = require('webpack-dashboard/plugin')
 module.exports = {
     entry: {
-        app: APP_PATH
+        main: APP_PATH,
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: '[name].js',
-        chunkFilename: 'js/[name].[chunkhash:5].min.js',
+        filename: 'main/[name].js',
+        chunkFilename: 'chunk/[name].[chunkhash:5].chunk.js',
     },
+    stats: { children: false },
     module: {
         rules: [{
-            test: /\.(js|jsx)$/,
-            use: [
-                'babel-loader',
-            ],
-            //exclude是定义不希望babel处理的文件  
-            exclude: '/node_modules/'
-        }, {
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                'css-loader',
-                "postcss-loader"
-            ]
-        }, {
-            test: /\.less$/,
-            use: [
-                'style-loader',
-                'css-loader',
-                "postcss-loader",
-                'less-loader'
-            ]
-        }, {
-            test: /\.scss$/,
-            use: [
-                'style-loader',
-                'css-loader',
-                "postcss-loader",
-                'sass-loader'
-            ]
-        },
-        {
-            test: /\.(png|jpg|gif)$/,
-            use: [{
+                test: /\.(js|jsx)$/,
+                loader: 'babel-loader',
+                query: {compact: false},
+                exclude: '/node_modules/'
+            }, {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    "postcss-loader"
+                ]
+            }, {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    "postcss-loader",
+                    'less-loader'
+                ]
+            }, {
+                test: /\.scss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    "postcss-loader",
+                    'sass-loader'
+                ]
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [{
+                    loader: 'url-loader',
+                    //使用插件时带上的参数
+                    options: {
+                        name: 'assets/images/[name].[hash:4].[ext]',
+                    }
+                }]
+            },
+            // 字体loader
+            {
+                test: /\.(eot|woff|woff2|ttf|svg)$/,
                 loader: 'url-loader',
-                //使用插件时带上的参数
-                options: {
-                    limit: 8192,
-                    name: 'img/[name].[hash:4].[ext]',
+                query: {
+                    name: 'assets/font/[name]-[hash:8].[ext]'
                 }
-            }]
-        },
-        {
-            test: /\.html$/,
-            use: [
-                'html-loader'
-            ]
-        }
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    'html-loader'
+                ]
+            }
         ]
     },
     // 在webpack启动后会从配置入口模块触发找出所有的以来模块  resolve配置webpack如何寻找这些模块
     resolve: {
         // 通过匹配后缀
-        extensions: ['.js', '.jsx', '.json', '.less', '.scss', 'css']
+        extensions: ['.js', '.jsx', '.json', '.less', '.scss', 'css'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js', 
+            '@': path.resolve(__dirname, "../src")
+        }
     },
     plugins: [
         //生成开发环境中的虚拟html文件
@@ -83,6 +94,12 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery'
         }),
-        new DashboardPlugin()
+        // 拷贝静态资源
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, '../staticConfig'),
+                to: path.resolve(__dirname, '../dist/staticConfig')
+            }
+        ]),
     ],
 }
